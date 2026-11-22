@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Month-end Submissions Checklist</title>
+<meta name="theme-color" content="#122255">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: dark;
+  --navy: #122255; --navy-deep: #0c1840; --blue: #233985; --blue-line: #3f58b0;
+  --yellow: #e6c159; --yellow-ink: #122255; --ink: #ffffff; --soft: #c9d2ee;
+  --red: #b42335; --green: #13803f; --bright-green: #3fd07a; --orange: #f28c28;
+  --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #122255; }
+body {
+  color: #fff; font-family: var(--body); font-size: 16px; line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid #e6c159; outline-offset: 2px; }
+.safe-top {
+  position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top);
+  background: #122255; z-index: 10;
+}
+.col {
+  max-width: 560px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+/* header */
+.head {
+  position: sticky; top: env(safe-area-inset-top); background: #122255;
+  padding: 8px 0; border-bottom: 1px solid var(--blue); z-index: 5;
+}
+.head h1 {
+  margin: 0; font-family: var(--display); font-weight: 800; font-size: 20px;
+  line-height: 1.15; text-wrap: balance;
+}
+.count { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
+.count .big { font-family: var(--display); font-weight: 800; font-size: 22px; font-variant-numeric: tabular-nums; }
+.count .of { color: var(--soft); font-size: 14px; }
+.pill {
+  font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+  color: #fff; background: var(--red);
+}
+.pill.ok { background: var(--green); }
+.bar { height: 8px; border-radius: 999px; margin-top: 8px; overflow: hidden; background: var(--red); }
+.bar > i { display: block; height: 100%; width: 0; background: var(--bright-green); transition: width .25s; }
+/* hint */
+.hint { display: flex; align-items: center; gap: 10px; margin: 10px 0 2px; }
+.tag {
+  background: var(--yellow); color: var(--yellow-ink); font-size: 14px; font-weight: 700;
+  padding: 6px 14px; border-radius: 999px; white-space: nowrap;
+}
+.hint span.t { font-size: 13px; color: var(--soft); }
+/* fields */
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0 4px; }
+.fields .full { grid-column: 1 / -1; }
+.fld label, label.fld {
+  display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--soft); margin-bottom: 4px;
+}
+.fld input, .fld textarea {
+  width: 100%; min-height: 40px; background: var(--blue); border: 1.5px solid var(--blue-line);
+  border-radius: 10px; padding: 6px 12px; font-size: 16px; color: #fff;
+}
+.fld textarea { min-height: 56px; resize: vertical; display: block; }
+.fld input::placeholder, .fld textarea::placeholder { color: #9fb0e6; }
+/* groups */
+.ghead { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 4px; }
+.ghead h2 {
+  margin: 0; font-family: var(--display); font-weight: 700; font-size: 15px;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--yellow);
+}
+.ghead .gc { font-size: 13px; color: var(--soft); font-variant-numeric: tabular-nums; }
+.gsub { font-size: 12.5px; line-height: 1.3; color: var(--soft); margin: 0 0 6px; }
+ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+li.row { border-radius: 9px; overflow: hidden; background: var(--red); transition: background .2s; }
+li.row.done { background: var(--green); }
+.main { display: grid; grid-template-columns: 40px 1fr; align-items: center; padding: 1px 8px 1px 2px; }
+li.qty .main { grid-template-columns: 40px 1fr 54px; gap: 6px; }
+.boxcell { display: flex; align-items: center; justify-content: center; width: 40px; min-height: 40px; background: none; border: 0; padding: 0; }
+.sq {
+  width: 25px; height: 25px; border: 2.5px solid #fff; border-radius: 7px; display: flex;
+  align-items: center; justify-content: center;
+}
+.row.done .sq { background: #fff; }
+.sq svg { width: 16px; height: 16px; visibility: hidden; }
+.row.done .sq svg { visibility: visible; }
+.namebtn {
+  width: 100%; min-height: 40px; background: none; border: 0; color: #fff; text-align: left;
+  font-weight: 700; font-size: 15px; line-height: 1.2; display: flex; align-items: center;
+  justify-content: space-between; gap: 8px; padding: 0;
+}
+.caret {
+  flex: none; width: 9px; height: 9px; border-right: 2px solid rgba(255,255,255,.85);
+  border-bottom: 2px solid rgba(255,255,255,.85); transform: rotate(45deg) translateY(-2px); transition: transform .2s;
+}
+.namebtn[aria-expanded="true"] .caret { transform: rotate(-135deg) translateY(-2px); }
+.qin {
+  width: 100%; height: 34px; background: #fff; border: 2px solid #fff; border-radius: 10px; color: var(--navy);
+  font-family: var(--display); font-weight: 800; font-size: 17px; text-align: center; font-variant-numeric: tabular-nums;
+  padding: 0;
+}
+.qin::placeholder { color: #6b78b8; font-family: var(--body); font-weight: 700; font-size: 14px; }
+.detail { background: var(--blue); padding: 8px 14px 10px 44px; font-size: 14px; }
+.detail[hidden] { display: none; }
+.detail p { margin: 0 0 6px; }
+.detail p:last-child { margin-bottom: 0; }
+.detail b, .panel b { color: var(--yellow); }
+.signgrid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 0; }
+/* actions */
+.actions { display: grid; gap: 10px; margin: 22px 0 6px; }
+.btn { width: 100%; min-height: 54px; border-radius: 12px; border: 0; font-weight: 700; font-size: 17px; }
+.btn.orange { background: var(--orange); color: var(--navy); }
+.btn.yellow { background: var(--yellow); color: var(--navy); }
+.btn:disabled { opacity: .6; cursor: default; }
+.confirm { background: var(--blue); border: 1.5px solid var(--blue-line); border-radius: 12px; padding: 14px; }
+.confirm[hidden], .btn[hidden], .fallback[hidden] { display: none; }
+.confirm p { margin: 0 0 12px; font-size: 15px; }
+.crow { display: flex; gap: 10px; }
+.crow button { flex: 1; min-height: 48px; font-size: 15px; font-weight: 700; border-radius: 12px; }
+.crow .yes { background: var(--yellow); color: var(--navy); border: 0; }
+.crow .keep { background: transparent; color: #fff; border: 2px solid var(--soft); }
+.fallback { font-size: 13px; color: var(--soft); margin: 0; }
+.toast { font-size: 14px; font-weight: 700; color: var(--yellow); min-height: 22px; }
+.fine { font-size: 13px; color: var(--soft); margin: 4px 0 0; }
+/* notes */
+.notes { margin-top: 26px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.chip {
+  min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--blue-line);
+  background: var(--blue); color: #fff; font-weight: 700; font-size: 14.5px;
+}
+.chip[aria-expanded="true"] { background: var(--yellow); color: var(--navy); border-color: var(--yellow); }
+.panel { background: var(--navy-deep); border: 1px solid var(--blue); border-radius: 12px; padding: 14px 16px; margin-top: 10px; font-size: 15px; }
+.panel[hidden] { display: none; }
+.panel p { margin: 0 0 8px; }
+.panel p:last-child { margin-bottom: 0; }
+/* footer */
+footer { margin-top: 34px; padding: 20px 0 28px; border-top: 1px solid var(--blue); text-align: center; }
+footer .tagline { font-family: var(--display); font-weight: 700; font-size: 16px; text-wrap: balance; margin: 0; }
+footer .li { font-size: 13px; color: var(--soft); margin: 8px 0 0; }
+footer .li a { color: var(--yellow); font-weight: 700; }
+footer .ver { font-size: 12px; color: #8fa0d8; margin: 8px 0 0; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="safe-top"></div>
+<div class="col">
+  <header class="head">
+    <h1>Month-end Submissions Checklist</h1>
+    <div class="count" aria-live="polite">
+      <div><span class="big" id="done">0</span> <span class="of">of 28 claimed</span></div>
+      <span class="pill" id="pill">28 to do</span>
+    </div>
+    <div class="bar"><i id="barfill"></i></div>
+  </header>
+
+  <div class="hint"><span class="tag">Tap a name</span><span class="t">to see what to check. Submit by the 5th.</span></div>
+
+  <div class="fields">
+    <div class="fld full"><label for="f-branch">Branch name</label><input id="f-branch" type="text" placeholder="e.g. High Street branch" autocomplete="off"></div>
+    <div class="fld"><label for="f-ods">ODS code</label><input id="f-ods" type="text" placeholder="e.g. FA123" autocomplete="off" autocapitalize="characters"></div>
+    <div class="fld"><label for="f-month">Activity month</label><input id="f-month" type="month" autocomplete="off"></div>
+    <div class="fld full"><label for="f-by">Prepared by</label><input id="f-by" type="text" placeholder="Your name" autocomplete="off"></div>
+  </div>
+
+  <div id="groups"></div>
+
+  <div class="ghead"><h2>Sign-off</h2></div>
+  <div class="signgrid">
+    <div class="fld"><label for="f-issues">Open issues, owner and due date</label><textarea id="f-issues" placeholder="Anything unresolved. Give each issue an owner and a due date." autocomplete="off"></textarea></div>
+    <div class="fld"><label for="f-checked">Checked by</label><input id="f-checked" type="text" placeholder="Name of the second checker" autocomplete="off"></div>
+  </div>
+
+  <div class="actions">
+    <button class="btn orange" id="dl" type="button">Download evidence copy</button>
+    <button class="btn yellow" id="restart" type="button">Restart for next month</button>
+    <div class="confirm" id="confirm" hidden>
+      <p>This clears every quantity and tick, the month, prepared by, open issues and checked by. Branch name and ODS code stay. Have you downloaded your evidence copy?</p>
+      <div class="crow"><button class="yes" id="yes" type="button">Yes, restart</button><button class="keep" id="keep" type="button">Keep my entries</button></div>
+    </div>
+    <p class="fallback" id="fallback" hidden>Downloads are not available in this view. Take a screenshot of the list as your evidence copy.</p>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+  <p class="fine">Entries stay on this device until you restart.</p>
+
+  <section class="notes">
+    <div class="hint" style="margin:0"><span class="tag">Tap a name</span><span class="t">for the notes</span></div>
+    <div class="chips" id="chips"></div>
+    <div class="panel" id="panel" hidden></div>
+  </section>
+
+  <footer>
+    <p class="tagline">Every claim checked. Every claim sent. Every claim proved.</p>
+    <p class="li">A new idea every week on LinkedIn: <a href="https://linkedin.com/in/sheltonmagunje" target="_blank" rel="noopener">linkedin.com/in/sheltonmagunje</a></p>
+    <p class="ver">Month-end checklist v1.2 · Check current NHS rules and deadlines</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var KEY = 'wbai-month-end-v2';
+  var TOTAL = 28;
+  var MYS_TEXT = 'Review the claim, including any figures already populated, then submit it. A saved draft is not a submitted claim.';
+  var MANUAL_TEXT = 'MYS manual means a member of staff enters the monthly figures into MYS from the RAVS dashboard or report. Recording a vaccination in RAVS does not complete the claim. Select the same branch, month and vaccine in both systems and check the totals match before you submit. If figures differ, find the cause. Do not force them to match.';
+
+  function q(id, name, check, route, more) { return { id: id, name: name, check: check, route: route || 'MYS', more: more || MYS_TEXT, qty: true }; }
+  function t(id, name, check, route, more) { return { id: id, name: name, check: check, route: route || '', more: more || '', qty: false }; }
+
+  var GROUPS = [
+    { title: 'Before month end', sub: 'Start checks in the last working days. Tap the box when done.', items: [
+      t('p1', 'Month, ODS and eligibility checked', 'Correct month and ODS code. Registration and service eligibility checked.'),
+      t('p2', 'Reports run, records finished', 'Run the activity reports. Finish records. Fix missing data, duplicates and failed transfers.')
+    ] },
+    { title: 'Claim on MYS', sub: 'From the 1st of the following month. Enter the quantity claimed, 0 if none.', items: [
+      q('s1', 'Pharmacy First: clinical pathways', 'Gateway and cap. Supplies recorded.'),
+      q('s2', 'Pharmacy First: referred minor illness', 'Valid referral. Eligible consultation.'),
+      q('s3', 'Pharmacy First: urgent medicines supply', 'Consultation and supplied items.'),
+      q('s4', 'NMS: intervention', 'Intervention consultations. Enter separately from follow-ups.'),
+      q('s5', 'NMS: follow-up', 'Follow-up consultations. Enter separately from interventions.'),
+      q('s6', 'Contraception: emergency (EHC)', 'Emergency contraception consultations.'),
+      q('s7', 'Contraception: monthly service', 'Initiation and ongoing contraception consultations.'),
+      q('s8', 'Hypertension: clinic BP checks', 'Clinic blood pressure checks.'),
+      q('s9', 'Hypertension: ABPM completed', 'Completed ambulatory blood pressure monitoring (ABPM).'),
+      q('s10', 'DMS: full completion', 'Fully completed Discharge Medicines Service.'),
+      q('s11', 'DMS: part-completion', 'Eligible part-completion of the Discharge Medicines Service.'),
+      q('s12', 'Smoking Cessation Service', 'Eligible consultations and NRT.'),
+      q('s13', 'COVID-19 LFD test supply', 'Eligible supplies and test costs.'),
+      q('s14', 'Adult flu vaccinations', 'Match the RAVS dashboard. Check vaccine costs and the vaccine-product breakdown.', 'MYS manual', MANUAL_TEXT),
+      q('s15', 'COVID-19 vaccinations', 'Match the RAVS dashboard totals.', 'MYS manual', MANUAL_TEXT),
+      q('s16', 'Childhood flu: LAIV', 'LAIV recorded.'),
+      q('s17', 'Childhood flu: IIVc', 'Eligible IIVc recorded.'),
+      q('s18', 'Meningococcal B vaccinations (MenB)', 'Reconcile RAVS. Enter the vaccine count.', 'MYS manual', MANUAL_TEXT),
+      q('s19', 'RSV vaccinations', 'Check the RSV vaccine total.'),
+      q('s20', 'Pertussis vaccinations', 'Check the pertussis vaccine total.'),
+      q('s21', 'Appliance Use Reviews (AUR)', 'Location and annual cap checked.', 'MYS and FP34C', 'Include the required declaration in the monthly FP34C submission. ' + MYS_TEXT),
+      t('s22', 'Stoma Appliance Customisation (SAC)', 'Registration and qualifying items checked.', 'Automatic', 'There is no separate monthly claim to send and no quantity to enter. Check registration, qualifying items and the later payment. Tap the box when checked.')
+    ] },
+    { title: 'Close the month', sub: 'Submission is complete only when confirmed. Tap the box when done.', items: [
+      t('c1', 'Dispensing reconciled, EPS sent', 'Medicines, appliances, repeat dispensing and eRD reconciled. EPS claims sent.'),
+      t('c2', 'FP34C on MYS, paper bundle sent', 'FP34C submitted on MYS. Paper bundle and any required Pharmacy First tokens dispatched.'),
+      t('c3', 'Other essential services reviewed', 'Disposal, public health, Healthy Living Pharmacy, signposting and self-care support. There is no separate monthly item-of-service claim.'),
+      t('c4', 'Schedule of Payments checked', 'Check the previous Schedule of Payments: Pharmacy First fixed fee, SAC, eligible extras and PQS windows.')
+    ] }
+  ];
+
+  var NOTES = [
+    { label: 'How to use', ps: [
+      '**Prepare** records before month end. **Reconcile and submit** from the 1st of the next month. Aim to finish by the 5th.',
+      'Check current deadline rules. Some deadlines move to the 6th for bank holidays. Do not rely on late claims.',
+      'Work down the list. Tap a name to see what to check. Enter the quantity once the claim is on MYS. Rows with a box turn green when you tap the box.'
+    ] },
+    { label: 'What turns green', ps: [
+      'A service row turns green when you enter a quantity. Enter the eligible, completed activity you are claiming. Claim activity, not referrals or enrolments.',
+      'No activity this month, or service not provided? Enter 0.',
+      'Enter the quantity only when the clinical records match the claim, MYS confirms it was submitted, and the receipt or submission report is saved.',
+      'Red means not done yet. Green means done.'
+    ] },
+    { label: 'MYS manual', ps: [
+      MANUAL_TEXT,
+      'Applies to adult flu, COVID-19 and MenB.'
+    ] },
+    { label: 'Other routes', ps: [
+      '**MYS:** review the claim, including any figures already populated, then submit it. A saved draft is not a submitted claim.',
+      '**MYS and FP34C:** include the required declaration in the monthly submission.',
+      '**Automatic:** SAC has no separate monthly claim to send. Check registration, qualifying items and the later payment.'
+    ] },
+    { label: 'Close and follow up', ps: [
+      'Complete the dispensing checks and sign-off. Give every unresolved issue an owner and a due date.',
+      'Download your evidence copy before you restart. Keep the claim receipts and reports with it.',
+      'Later, compare the Schedule of Payments with your submissions. Sent does not mean paid.'
+    ] },
+    { label: 'Key', ps: [
+      '**MYS** Manage Your Service\n**RAVS** Record a vaccination service\n**ODS** branch organisation code\n**SAC** Stoma Appliance Customisation'
+    ] }
+  ];
+
+  var FIELDS = ['branch', 'ods', 'month', 'by', 'issues', 'checked'];
+  var state = { s: {}, q: {}, f: {} };
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var o = JSON.parse(raw);
+        if (o && typeof o === 'object') {
+          state.s = o.s || {}; state.q = o.q || {}; state.f = o.f || {};
+        }
+      }
+    } catch (e) { /* storage blocked */ }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage blocked */ }
+  }
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function md(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>'); }
+  function $(id) { return document.getElementById(id); }
+
+  var CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8" fill="none" stroke="#13803f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  var allItems = [];
+  var rowEls = {};
+  var groupCountEls = [];
+
+  function isDone(it) {
+    if (it.qty) return /^\d+$/.test(state.q[it.id] || '');
+    return !!state.s[it.id];
+  }
+
+  function buildGroups() {
+    var root = $('groups');
+    GROUPS.forEach(function (g, gi) {
+      var head = document.createElement('div');
+      head.className = 'ghead';
+      head.innerHTML = '<h2>' + esc(g.title) + '</h2><span class="gc"></span>';
+      root.appendChild(head);
+      groupCountEls[gi] = head.querySelector('.gc');
+      var sub = document.createElement('p');
+      sub.className = 'gsub';
+      sub.textContent = g.sub;
+      root.appendChild(sub);
+      var ul = document.createElement('ul');
+      ul.className = 'list';
+      g.items.forEach(function (it) {
+        allItems.push(it);
+        var li = document.createElement('li');
+        li.className = 'row' + (it.qty ? ' qty' : '');
+        var main = document.createElement('div');
+        main.className = 'main';
+
+        var boxCell;
+        if (it.qty) {
+          boxCell = document.createElement('span');
+          boxCell.className = 'boxcell';
+          boxCell.setAttribute('aria-hidden', 'true');
+          boxCell.innerHTML = '<span class="sq">' + CHECK + '</span>';
+        } else {
+          boxCell = document.createElement('button');
+          boxCell.type = 'button';
+          boxCell.className = 'boxcell';
+          boxCell.setAttribute('role', 'checkbox');
+          boxCell.setAttribute('aria-label', 'Done: ' + it.name);
+          boxCell.innerHTML = '<span class="sq">' + CHECK + '</span>';
+          boxCell.addEventListener('click', function () {
+            if (state.s[it.id]) delete state.s[it.id]; else state.s[it.id] = 1;
+            save(); refresh();
+          });
+        }
+        main.appendChild(boxCell);
+
+        var nb = document.createElement('button');
+        nb.type = 'button';
+        nb.className = 'namebtn';
+        nb.setAttribute('aria-expanded', 'false');
+        nb.innerHTML = '<span>' + esc(it.name) + '</span><span class="caret"></span>';
+        main.appendChild(nb);
+
+        var qin = null;
+        if (it.qty) {
+          qin = document.createElement('input');
+          qin.type = 'text';
+          qin.className = 'qin';
+          qin.setAttribute('inputmode', 'numeric');
+          qin.setAttribute('pattern', '[0-9]*');
+          qin.maxLength = 5;
+          qin.placeholder = 'Qty';
+          qin.setAttribute('aria-label', 'Quantity: ' + it.name);
+          qin.autocomplete = 'off';
+          qin.addEventListener('input', function () {
+            var v = qin.value.replace(/\D/g, '').slice(0, 5);
+            if (v !== qin.value) qin.value = v;
+            if (v === '') delete state.q[it.id]; else state.q[it.id] = v;
+            save(); refresh();
+          });
+          qin.addEventListener('focus', function () { qin.select(); });
+          main.appendChild(qin);
+        }
+        li.appendChild(main);
+
+        var d = document.createElement('div');
+        d.className = 'detail';
+        d.hidden = true;
+        var html = '<p><b>Check</b> ' + esc(it.check) + '</p>';
+        if (it.route) html += '<p><b>Route</b> ' + esc(it.route) + '</p>';
+        if (it.more) html += '<p>' + esc(it.more) + '</p>';
+        d.innerHTML = html;
+        li.appendChild(d);
+
+        nb.addEventListener('click', function () {
+          var open = nb.getAttribute('aria-expanded') === 'true';
+          nb.setAttribute('aria-expanded', open ? 'false' : 'true');
+          d.hidden = open;
+        });
+
+        rowEls[it.id] = { li: li, box: it.qty ? null : boxCell, qin: qin, nb: nb, d: d };
+        ul.appendChild(li);
+      });
+      root.appendChild(ul);
+    });
+  }
+
+  function refresh() {
+    var done = 0;
+    GROUPS.forEach(function (g, gi) {
+      var gd = 0;
+      g.items.forEach(function (it) {
+        var ok = isDone(it);
+        if (ok) { gd++; done++; }
+        var r = rowEls[it.id];
+        r.li.classList.toggle('done', ok);
+        if (r.box) r.box.setAttribute('aria-checked', ok ? 'true' : 'false');
+      });
+      groupCountEls[gi].textContent = gd + ' of ' + g.items.length;
+    });
+    $('done').textContent = done;
+    var open = TOTAL - done;
+    var pill = $('pill');
+    pill.textContent = open > 0 ? open + ' to do' : 'All done';
+    pill.classList.toggle('ok', open === 0);
+    $('barfill').style.width = (done / TOTAL * 100) + '%';
+  }
+
+  function restoreInputs() {
+    allItems.forEach(function (it) {
+      var r = rowEls[it.id];
+      if (r.qin) r.qin.value = state.q[it.id] || '';
+    });
+    FIELDS.forEach(function (k) { $('f-' + k).value = state.f[k] || ''; });
+  }
+
+  function wireFields() {
+    FIELDS.forEach(function (k) {
+      $('f-' + k).addEventListener('input', function () {
+        state.f[k] = $('f-' + k).value;
+        save();
+      });
+    });
+  }
+
+  /* toast */
+  var toastTimer = null;
+  function toast(msg) {
+    var el = $('toast');
+    el.textContent = msg;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.textContent = ''; }, 5000);
+  }
+
+  /* notes */
+  var openNote = -1;
+  function buildNotes() {
+    var chips = $('chips');
+    NOTES.forEach(function (n, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.textContent = n.label;
+      b.setAttribute('aria-expanded', 'false');
+      b.addEventListener('click', function () {
+        var panel = $('panel');
+        var kids = chips.children;
+        if (openNote === i) {
+          openNote = -1; panel.hidden = true; panel.innerHTML = '';
+        } else {
+          openNote = i;
+          panel.innerHTML = n.ps.map(function (p) { return '<p>' + md(p) + '</p>'; }).join('');
+          panel.hidden = false;
+        }
+        for (var k = 0; k < kids.length; k++) kids[k].setAttribute('aria-expanded', k === openNote ? 'true' : 'false');
+      });
+      chips.appendChild(b);
+    });
+  }
+
+  /* restart */
+  function wireRestart() {
+    $('restart').addEventListener('click', function () {
+      $('restart').hidden = true;
+      var c = $('confirm');
+      c.hidden = false;
+      try { c.scrollIntoView({ block: 'nearest' }); } catch (e) { /* ignore */ }
+    });
+    $('keep').addEventListener('click', function () {
+      $('confirm').hidden = true;
+      $('restart').hidden = false;
+    });
+    $('yes').addEventListener('click', function () {
+      state.s = {}; state.q = {};
+      state.f.month = ''; state.f.by = ''; state.f.issues = ''; state.f.checked = '';
+      allItems.forEach(function (it) {
+        var r = rowEls[it.id];
+        r.nb.setAttribute('aria-expanded', 'false');
+        r.d.hidden = true;
+      });
+      restoreInputs();
+      save(); refresh();
+      $('confirm').hidden = true;
+      $('restart').hidden = false;
+      toast('Ready for next month.');
+      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
+    });
+  }
+
+  /* evidence copy */
+  function slug(s) {
+    return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40).replace(/-+$/g, '');
+  }
+  function fileName() {
+    var who = slug(state.f.ods) || slug(state.f.branch) || 'branch';
+    var m = /^\d{4}-\d{2}$/.test(state.f.month || '') ? state.f.month : 'month';
+    return 'month-end-submissions-' + who + '-' + m + '.png';
+  }
+  function monthName(v) {
+    var m = /^(\d{4})-(\d{2})$/.exec(v || '');
+    if (!m) return 'Not entered';
+    return new Date(+m[1], +m[2] - 1, 1).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  }
+  function rr(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+  function wrapText(ctx, text, maxW) {
+    var out = [];
+    String(text).split('\n').forEach(function (para) {
+      var words = para.split(/\s+/), line = '';
+      words.forEach(function (w) {
+        var test = line ? line + ' ' + w : w;
+        if (ctx.measureText(test).width > maxW && line) { out.push(line); line = w; } else { line = test; }
+      });
+      out.push(line);
+    });
+    return out;
+  }
+  var DISPLAY = '"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif';
+  var BODY = '"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif';
+
+  function drawSheet() {
+    var W = 1080, P = 48;
+    var cv = document.createElement('canvas');
+    cv.width = W; cv.height = 4200;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#122255';
+    ctx.fillRect(0, 0, W, 4200);
+    ctx.textBaseline = 'alphabetic';
+    var y = P;
+
+    ctx.fillStyle = '#e6c159'; ctx.font = '700 22px ' + BODY;
+    y += 22; ctx.fillText('EVIDENCE COPY', P, y);
+    ctx.fillStyle = '#fff'; ctx.font = '800 50px ' + DISPLAY;
+    y += 62; ctx.fillText('Month-end Submissions Checklist', P, y);
+    ctx.fillStyle = '#c9d2ee'; ctx.font = '26px ' + BODY;
+    y += 44; ctx.fillText('NHS pharmacy, England. One branch, one month.', P, y);
+
+    var rows = [
+      ['Branch', state.f.branch || 'Not entered'],
+      ['ODS code', state.f.ods || 'Not entered'],
+      ['Activity month', monthName(state.f.month)],
+      ['Prepared by', state.f.by || 'Not entered']
+    ];
+    y += 20;
+    rows.forEach(function (r) {
+      y += 46;
+      ctx.fillStyle = '#e6c159'; ctx.font = '700 22px ' + BODY; ctx.fillText(r[0].toUpperCase(), P, y);
+      ctx.fillStyle = '#fff'; ctx.font = '700 30px ' + BODY; ctx.fillText(r[1], 298, y);
+    });
+
+    var done = allItems.filter(isDone).length;
+    y += 26;
+    ctx.fillStyle = '#233985'; rr(ctx, P, y, W - 2 * P, 70, 14); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.font = '700 30px ' + BODY;
+    ctx.fillText(done + ' claimed   ' + (TOTAL - done) + ' not claimed', P + 24, y + 46);
+    y += 70 + 34;
+
+    GROUPS.forEach(function (g) {
+      var gd = g.items.filter(isDone).length;
+      ctx.fillStyle = '#e6c159'; ctx.font = '700 24px ' + BODY; ctx.textAlign = 'left';
+      ctx.fillText(g.title.toUpperCase(), P, y + 24);
+      ctx.fillStyle = '#c9d2ee'; ctx.textAlign = 'right';
+      ctx.fillText(gd + ' of ' + g.items.length, W - P, y + 24);
+      ctx.textAlign = 'left';
+      y += 44;
+      g.items.forEach(function (it) {
+        var ok = isDone(it);
+        ctx.fillStyle = ok ? '#13803f' : '#b42335';
+        rr(ctx, P, y, W - 2 * P, 60, 12); ctx.fill();
+        // square
+        var sx = P + 16, sy = y + 12;
+        if (ok) {
+          ctx.fillStyle = '#fff'; rr(ctx, sx, sy, 36, 36, 9); ctx.fill();
+          ctx.strokeStyle = '#13803f'; ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+          ctx.beginPath(); ctx.moveTo(sx + 8, sy + 19); ctx.lineTo(sx + 15, sy + 26); ctx.lineTo(sx + 29, sy + 10); ctx.stroke();
+        } else {
+          ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; rr(ctx, sx + 1.5, sy + 1.5, 33, 33, 9); ctx.stroke();
+        }
+        ctx.fillStyle = '#fff'; ctx.font = '700 27px ' + BODY; ctx.textAlign = 'left';
+        ctx.fillText(it.name, 120, y + 40);
+        ctx.textAlign = 'right';
+        if (ok && it.qty) { ctx.font = '800 32px ' + DISPLAY; ctx.fillText(state.q[it.id], W - P - 20, y + 42); }
+        else { ctx.font = '700 22px ' + BODY; ctx.fillText(ok ? 'Done' : 'Not claimed', W - P - 20, y + 40); }
+        ctx.textAlign = 'left';
+        y += 68;
+      });
+      y += 22 - 8;
+    });
+
+    ctx.fillStyle = '#e6c159'; ctx.font = '700 24px ' + BODY; y += 24; ctx.fillText('SIGN-OFF', P, y);
+    ctx.font = '700 22px ' + BODY; y += 42; ctx.fillText('OPEN ISSUES, OWNER, DUE DATE', P, y);
+    ctx.fillStyle = '#fff'; ctx.font = '28px ' + BODY;
+    var lines = wrapText(ctx, (state.f.issues || '').trim() || 'None entered', W - 2 * P);
+    lines.forEach(function (ln) { y += 38; ctx.fillText(ln, P, y); });
+    y += 52;
+    ctx.fillStyle = '#e6c159'; ctx.font = '700 22px ' + BODY; ctx.fillText('CHECKED BY', P, y);
+    ctx.fillStyle = '#fff'; ctx.font = '700 30px ' + BODY; ctx.fillText((state.f.checked || '').trim() || 'Not entered', 298, y);
+    y += 52;
+    var stamp = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
+    ctx.fillStyle = '#c9d2ee'; ctx.font = '24px ' + BODY;
+    ctx.fillText('Saved ' + stamp, P, y);
+    y += 40;
+    ctx.fillText('Sent does not mean paid. Compare the Schedule of Payments with these claims.', P, y);
+
+    var H = Math.min(4200, Math.ceil(y + P));
+    var out = document.createElement('canvas');
+    out.width = W; out.height = H;
+    out.getContext('2d').drawImage(cv, 0, 0, W, H, 0, 0, W, H);
+    return out;
+  }
+
+  function toBlob(canvas) {
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(function (b) { b ? resolve(b) : reject(new Error('no blob')); }, 'image/png');
+    });
+  }
+
+  function anchorDownload(blob, name) {
+    var a = document.createElement('a');
+    if (!('download' in a)) return false;
+    var url = URL.createObjectURL(blob);
+    a.href = url; a.download = name; a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    return true;
+  }
+
+  function fail() {
+    toast('The download did not work. Take a screenshot of the list instead.');
+    $('fallback').hidden = false;
+  }
+
+  function wireDownload() {
+    $('dl').addEventListener('click', function () {
+      var btn = $('dl');
+      btn.disabled = true;
+      var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+      fontsReady.then(function () {
+        var canvas = drawSheet();
+        return toBlob(canvas);
+      }).then(function (blob) {
+        var name = fileName();
+        var file = null, canShare = false;
+        try {
+          file = new File([blob], name, { type: 'image/png' });
+          canShare = !!(navigator.canShare && navigator.share && navigator.canShare({ files: [file] }));
+        } catch (e) { canShare = false; }
+        var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        var done = false;
+        if (!(ios && canShare)) {
+          try { done = anchorDownload(blob, name); } catch (e) { done = false; }
+        }
+        if (done) { toast('Evidence copy saved. You can restart when ready.'); return; }
+        if (canShare) {
+          return navigator.share({ files: [file] }).then(function () {
+            toast('Evidence copy saved. You can restart when ready.');
+          }, function (err) {
+            if (err && err.name === 'AbortError') toast('Not saved. Tap Download again when ready.');
+            else fail();
+          });
+        }
+        fail();
+      }).catch(function () { fail(); }).then(function () { btn.disabled = false; });
+    });
+  }
+
+  load();
+  buildGroups();
+  buildNotes();
+  restoreInputs();
+  wireFields();
+  wireRestart();
+  wireDownload();
+  refresh();
+})();
+</script>
+</body>
+</html>
